@@ -7,7 +7,7 @@ theme: sandstone
 ---
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
-library(tidyverse)
+library(readr)
 library(here)
 library(lubridate)
 library(ggbeeswarm)
@@ -24,15 +24,41 @@ glimpse(climas)
 ## Temperatura
 
 ### Onde é mais quente?
+  A partir de um gráfico beeswarm e agrupando as temperaturas por cidade é possível perceber que Campina Grande obteve a temperatura máxima de aproximadamente 34.5 graus.
+
+```{r}
+climas %>%
+  ggplot(mapping=aes(cidade,tmax, color = cidade)) + 
+  geom_quasirandom(size=.50) +
+  scale_x_discrete(name = "Cidade") +
+  scale_y_continuous(name = "Temperatura Mínima", breaks = seq(25,35,1)) +
+  theme(legend.position = "none")
+  #eixo y com diferença de 1 grau na marcação
+  #renomear labels
+```
+
 
 
 ### As temperaturas máximas semanais (o pico do calor) são tão diferentes quanto as médias? Mais?  
 
 
 ### Quais os meses mais quentes e mais frios? 
-
+```{r}
+```
 
 ### Qual foi o São João  mais frio de CG que está nos nossos dados?
+```{r}
+climas %>%
+  filter(cidade == "Campina Grande" & mes == 6 & day(as.Date(semana)) >= 18 & day(as.Date(semana)) <=24) %>%
+  ggplot(aes(ano,tmin)) + 
+  geom_line() +
+  geom_text(aes(label=tmin),hjust=0, vjust=0, size=3) +
+  scale_x_continuous(name = "Ano", breaks = seq(1995,2018,2)) +
+  scale_y_continuous(name = "Temperatura Mínima", breaks = seq(16,25,0.5)) +
+  theme(axis.text.x = element_text(angle = 45))
+  
+#entre 18 e 24 de junho
+```
 
 
 
@@ -43,6 +69,12 @@ glimpse(climas)
 Como é a distribuição do volume de chuvas por semana em JP e CG? A chuva varia mais ou menos que a temperatura? O formato da distribuição é igual? 
 
 ### No geral, onde chove mais?
+```{r}
+#
+```
 
 ### A distribuição é diferente em meses específicos? 
+```{r}
+#
+```
 
