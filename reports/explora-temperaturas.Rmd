@@ -67,7 +67,7 @@ climas %>%
 Como é a distribuição do volume de chuvas por semana em JP e CG? A chuva varia mais ou menos que a temperatura? O formato da distribuição é igual? 
 
 ### No geral, onde chove mais?
-  Utlizando a mediana para representar o volume de chuva por ano em cada cidade, vê-se que a cidade de Campina Grande em geral tem menos chuva que em João Pessoa. Enquanto em João Pessoa o ano mais chuvoso foi em 2007 com 24mm, Campina Grande teve seu pico em 2004 com apenas 12mm.
+  Utlizando a mediana para representar o volume de chuva por ano em cada cidade, vê-se que a cidade de Campina Grande em geral tem menos chuva que em João Pessoa. Enquanto em João Pessoa o ano mais chuvoso foi em 2007 com 24mm, Campina Grande teve seu pico em 2004 com apenas 12mm. 
 ```{r}
 climas %>%
   group_by(cidade, ano) %>%
@@ -82,7 +82,15 @@ climas %>%
 ```
 
 ### A distribuição é diferente em meses específicos? 
-```{r}
-#agrupar por mes
-```
+  Agrupando por mês, no gráfico onde cada ponto é um ano, é pereceptível que os meses entre setembro e dezembro são onde há um padrão de chuva para ambas a cidades. Enquanto em junho há uma dissiparidade grande no volume de chuva no decorrer dos anos principalmente para João Pessoa.
 
+```{r}
+climas %>%
+  group_by(ano, mes, cidade) %>%
+  summarise(total_chuva = median(chuva)) %>%
+  ggplot(aes(x= mes,y = total_chuva)) + 
+  geom_quasirandom(size=.90, aes(colour = cidade))  +
+  scale_x_continuous(breaks = seq(1,12)) +
+  scale_y_continuous(breaks = seq(0,175,5)) +
+  labs(x = "Mês", y = "Chuva (mm)",colour = "Ano")
+```
