@@ -24,6 +24,8 @@ climas = read_csv(here::here("data/clima_cg_jp-semanal.csv"),
 #glimpse(climas)
 ```
 
+**Um adendo: nem todos anos estão com informações semanais completas. O relatório abaixo foi feito com o máximo de dados possíveis para cada caso.**
+
 ## Temperatura
 
 ### Onde é mais quente?
